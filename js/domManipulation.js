@@ -1,5 +1,12 @@
 
 function changeBoxColors(color) {
+
+  var boxList = document.getElementsByClassName("box")
+  for (var i = 0; i < boxList.length; i++) {
+    boxList[i].style.backgroundColor = color;
+  }
+
+
   console.log('Selected color: ' + color);
   // TODO: Look at styles.css and choose a class
   // to apply to all of the box elements in order
@@ -9,19 +16,30 @@ function changeBoxColors(color) {
 }
 
 function addBox() {
+
+  var newBoxElement = document.createElement('div');
+  newBoxElement.setAttribute("class", "box");
+  var boxPapa = document.getElementById("boxes")
+  boxPapa.appendChild(newBoxElement);
+
   console.log('Adding a new box');
+
   // TODO: Add a new div with class="box" to
   // the boxes section of the dom tree
 
-  var newBoxElement = null; // replace with your code
+  // replace with your code
   // This line is needed to make sure that new boxes
   // handle clicks. Make sure thatnewBoxElement refers
   // to the DOM node containing your new Div.
   newBoxElement.addEventListener('click', handleBoxClick);
 }
 
-var selectedBoxes = [];
+// var selectedBoxes = [];
 function removeSelectedBoxes() {
+  var selectedBoxes = document.getElementsByClassName("box-selected");
+  while(selectedBoxes.length > 0){
+    selectedBoxes[0].parentNode.removeChild(selectedBoxes[0]);
+  }
   console.log('Removing selected boxes');
   // TODO: look at the selectedBoxes array and remove each of those
   // from their parent in the DOM tree (their parent is the div with id="boxes").
@@ -31,6 +49,17 @@ function removeSelectedBoxes() {
 /* Event Handlers */
 function handleBoxClick(event) {
   var boxElement = event.target;
+
+  // selectedBoxes.push(boxElement);
+
+  if (boxElement.classList.contains("box-selected") == false) {
+    boxElement.classList.add("box-selected");
+    // selectedBoxes.push(boxElement);
+  } else {
+    boxElement.classList.remove("box-selected");
+    // selectedBoxes.pop(boxElement);
+  }
+
   console.log('Selecting box: ', boxElement);
   // TODO: add or remove the box from the array of selectedBoxes
   // TODO: looke at styles.css and choose a class (or multiple classes)
